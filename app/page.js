@@ -1,69 +1,72 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import MenuCard from '@/components/MenuCard'
+import Section from '@/components/Section'
+import StampCard from '@/components/StampCard';
+import menus from '@/data/menus'
+import MenuBoard from '@/components/MenuBoard'
+
+const categories =[
+  {key:'coffee', label:'☕ 커피'},
+  {key:'drink', label:'🍹 음료'},
+  {key:'dessert', label:'🍰 디저트'},
+  {key:'bakery', label:'🥐 빵'},
+
+];
+
 
 export default function Home() {
+  
+  const available = menus.filter((menu)=>(!menu.soldOut));
+  const newMenus = menus.filter((menu)=>(menu.isNew));
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main>
+    <h1>☕동동 카페</h1>
+    {/* <p>전체 {menus.length}개ㆍ주문 가능 {available.length}</p>
+    {newMenus.length > 0 &&(
+      <p className="notice">
+        🎉 신메뉴 : {newMenus.map((menu)=> menu.name).join(', ')}
+      </p>
+    )}
+    {categories.map((cat)=>{
+      const items = menus.filter((menu)=>(menu.category === cat.key))
+      return (
+        <Section key={cat.key} title={`${cat.label} (${items.length})`}>
+          {items.length===0? <p className='empty'>준비중입니다.</p>:
+            (items.map((menu)=> <MenuCard key={menu.id}{...menu}/>))
+          }
+
+        </Section>
+      );
+    })}
+
+    <p>전체 {menus.length}개, 주문 가능 {available.length}</p> */}
+    <StampCard/>
+    <MenuBoard menus={menus}/>
+
+
+
+
+
+    {/* <div className="menu-grid">
+      {menus.map((menu)=>(
+        <MenuCard
+        key={menu.id} 
+        emoji={menu.emoji}
+        name={menu.name}
+        price={menu.price}
+        desc={menu.desc}
+        isNew={menu.isNew}
+        soldOut={menu.soldOut}
         />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      ))}
+    </div> */}
+    {/* <Section title="오늘의 추천">
+      <MenuCard name="아메리카노" price={3500} desc="진한 에스프레소+물"/>
+      <MenuCard name="카페라테" price={4000} desc="진한 에스프레소+우유" isNew/>
+      <MenuCard name="헤이즐넛라테" price={4500} desc="진한 에스프레소+우유+헤이즐넛 시럽" soldOut/>
+
+    </Section> */}
+
+    
+    </main>
   );
 }
